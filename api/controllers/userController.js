@@ -16,8 +16,8 @@ userController.login = async (req, res) => {
     const existingUser = await getUser.findByEmail(req.body.email)
     if (!existingUser) return res.status(404).json({message: "user does not exist"})
     
-    const user = await userService.login(req.body, existingUser)
 
+    const user = await userService.login(req.body, existingUser)
     return res.status(200).json(user)
     
 }

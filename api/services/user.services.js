@@ -1,6 +1,7 @@
 const userEntity = require("../entities/user.entity");
 const User = require("../data-access/user.dao")
 const decryptPassword = require("../utils/encryptPassword").decryptPassword
+const jwtToken = require('../utils/jwt')
 
 const userService = {}
 
@@ -8,6 +9,7 @@ userService.register = async (userData) => {
     const user = await new userEntity(userData).execute()
 
     const createUser = await User.insert({
+        uuid: user.getUserId(),
         userName: user.getUserName(),
         email: user.getUserEmail(),
         password: user.getUserPassword()
@@ -22,11 +24,12 @@ userService.register = async (userData) => {
 userService.login = async (userData, existingUser) => {
     try {
         const user = await new userEntity(userData)
-        console.log(user)
-        await decryptPassword(user.getUserPassword, existingUser.password)
-        return user
+        await decryptPassword(user.getUserPassword(), existingUser.password)
+
+        const token = await jwtToken.generateToken(existingUser)
+        return ({user, token, sucess: true})
     } catch (err) {
-        res.status(404).json({messgae: err.message})
+        return({messgae: err.message})
     }
 
 

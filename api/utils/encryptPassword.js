@@ -7,8 +7,8 @@ encrytions.hashPassword = (password) => {
     return encryptedPassword;
 }
 
-encrytions.decryptPassword = (password, existingUser) => {
-    let encryptedPassword = bcrypt.compare(password, existingUser.password)
+encrytions.decryptPassword = async (password, existingUserPassword) => {
+    let encryptedPassword = await bcrypt.compare(password, existingUserPassword)
     if(!encryptedPassword) throw new Error('Password is incorrect')
 
     return encryptedPassword
