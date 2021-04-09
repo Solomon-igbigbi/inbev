@@ -3,7 +3,7 @@
   * api not yet deployed
   * api hasnt been documented with swagger
   
-### overall app main features of the api is working
+### overall api main features are working
 
 * API Enpoints
     * api/auth/login
