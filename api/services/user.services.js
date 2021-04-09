@@ -1,7 +1,7 @@
 const userEntity = require("../entities/userEntity/user.entity");
 const User = require("../data-access/user.dao")
 const decryptPassword = require("../utils/encryptPassword").decryptPassword
-const jwtToken = require('../middlewares/jwt')
+const jwtToken = require('../middlewares/jwt');
 
 const userService = {}
 
@@ -9,11 +9,11 @@ userService.register = async (userData) => {
     try {
         // make a new user object with inputed data
         const user = await new userEntity(userData).execute()
-        if(user.details) return ({error: user.details[0].message})
+        if(user.details) throw new Error(user.details[0].message)
 
         // check if the user already exists
         const existingUser = await User.findByEmail(userData.email)
-        if (existingUser) return ({message: "user already exist"})
+        if (existingUser) throw new Error("user already exist")
 
         // if user does not exist, create the user
         const createUser = await User.insert({
@@ -31,7 +31,7 @@ userService.register = async (userData) => {
         return newUser
 
     } catch(err) {
-        throw new Error(err)
+        throw new Error(err.message)
     }
     
 }
@@ -44,7 +44,7 @@ userService.login = async (userData) => {
 
         // check if the user is registered
         const existingUser = await User.findByEmail(userData.email)
-        if (!existingUser) return ({message: "user does not exist"})
+        if (!existingUser) throw new Error("user does not exist")
         
         // check if the user pasword is correct
         await decryptPassword(user.getUserPassword(), existingUser.password)
@@ -54,7 +54,7 @@ userService.login = async (userData) => {
         return ({user: existingUser, token, sucess: true})
 
     } catch(err) {
-        throw new Error({messgae: err.message})
+        throw new Error(err.message)
     }
 
 

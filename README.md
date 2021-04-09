@@ -11,3 +11,5 @@
     * api/shape/:all (get history calculations done by logged in user)
     * api/shape/:shape?sideA=2&sideB=4 (dynamic api for different shapes calculation)
 
+### Full documentation [here](https://documenter.getpostman.com/view/13036400/TzCV2iwk)
+

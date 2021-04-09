@@ -8,8 +8,8 @@ userController.register = async (req, res) => {
         // call user service to register user
         const user = await userService.register(req.body)
         return res.status(201).json(user)
-    } catch(error) {
-        return res.status(400).json(error)
+    } catch(err) {
+        return res.status(400).json({message: err.message})
     }
   
 }
@@ -21,8 +21,8 @@ userController.login = async (req, res) => {
         return res.status(200).json(user)
     }
 
-    catch(error) {
-        return res.status(400).json(error.message)
+    catch(err) {
+        return res.status(400).json({message: err.message})
     }
 }
 
