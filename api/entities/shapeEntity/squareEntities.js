@@ -3,13 +3,13 @@ class makeSquare {
         console.log(dimensions)
         // console.log(shape)
         this._shape= shape
-        this._sideA =  dimensions.sideA || 0
-        this._sideB =  dimensions.sideB || 0
+        this._sideA =  parseInt(dimensions.sideA) || 0
+        this._sideB =  parseInt(dimensions.sideB) || 0
     }
 
     _getArea() {
-        // console.log(this._sideA * this._sideB)
-        return (this._sideA * this._sideB)
+        const result = this._sideA * this._sideB
+        return result.toFixed(2)
     }
 
     getSides() {
