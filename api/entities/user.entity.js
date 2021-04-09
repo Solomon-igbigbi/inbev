@@ -1,9 +1,14 @@
 const hashPassword = require("../utils/encryptPassword").hashPassword
 const  { v4: uuidv4 } = require('uuid');
+const validate = require("../validators/userValidator");
 
 class makeUser {
     constructor(userData) {
         this._userData = userData;
+    }
+
+    async _validate() {
+        return validate.validateUserSignUp(this._userData)
     }
 
     async _encryptUserPassword() {
@@ -12,7 +17,13 @@ class makeUser {
 
     async _setUserId() {
         this._userData.uuid = uuidv4()
-        console.log(this._userData.uuid)
+    }
+
+    async validateLogin() {
+        const { error } = await validate.validateUserLogin(this._userData)
+        if(error) return  error
+
+        return this
     }
 
     getUserId() {
@@ -33,9 +44,13 @@ class makeUser {
     }
 
 
-    async execute(){    
+    async execute(){  
+        const {error} = await this._validate() 
+        if(error) return  error
+
         await this._encryptUserPassword();
         await this._setUserId();
+        
     
         Object.freeze(this._userData);
 

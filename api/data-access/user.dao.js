@@ -3,7 +3,6 @@ const userModel = require("../models/").User
 const makeUser = {
     async findByEmail(email) {
         const result = await userModel.findOne({ where: { email }, attributes: { exclude: ['id'] } });
-        console.log({message: result})
         return result;
       },
   
