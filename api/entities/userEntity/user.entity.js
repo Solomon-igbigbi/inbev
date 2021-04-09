@@ -1,6 +1,6 @@
-const hashPassword = require("../utils/encryptPassword").hashPassword
+const hashPassword = require("../../utils/encryptPassword").hashPassword
 const  { v4: uuidv4 } = require('uuid');
-const validate = require("../validators/userValidator");
+const validate = require("../../validators/userValidator");
 
 class makeUser {
     constructor(userData) {

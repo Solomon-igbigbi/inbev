@@ -1,4 +1,3 @@
-const getUser = require("../data-access/user.dao")
 const userService = require("../services/user.services")
 
 

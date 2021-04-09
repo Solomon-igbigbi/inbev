@@ -1,7 +1,7 @@
-const userEntity = require("../entities/user.entity");
+const userEntity = require("../entities/userEntity/user.entity");
 const User = require("../data-access/user.dao")
 const decryptPassword = require("../utils/encryptPassword").decryptPassword
-const jwtToken = require('../utils/jwt')
+const jwtToken = require('../middlewares/jwt')
 
 const userService = {}
 
